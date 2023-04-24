@@ -69,15 +69,15 @@ do
     for host in ${hosts[@]}
     do
         for i in {1..5}
-		do
-			result=GOOD
-			curl -s $host > /dev/null
-			if (($? != 0))
-				then
-					result=BAD
-				fi
-			echo $(date) $host $result >> curl.log
-		done
+        do
+            result=GOOD
+            curl -s $host > /dev/null
+            if (($? != 0))
+                then
+                    result=BAD
+                fi
+            echo $(date) $host $result >> curl.log
+        done
     done
 done
 ```
@@ -96,16 +96,16 @@ do
     for host in ${hosts[@]}
     do
         for i in {1..5}
-		do
-			curl -s $host > /dev/null
-			if (($? != 0))
-				then
-					echo $host > error.log
+        do
+            curl -s $host > /dev/null
+            if (($? != 0))
+                then
+                    echo $host > error.log
                     echo "Find BAD host!!!"
                     exit 1
-				fi
-			echo $(date) $host >> curl.log
-		done
+                fi
+            echo $(date) $host >> curl.log
+        done
     done
 done
 ```
