@@ -37,8 +37,8 @@ bash_command = ["cd ~/netology/sysadm-homeworks", "git status"]
 result_os = os.popen(' && '.join(bash_command)).read()
 is_change = False
 for result in result_os.split('\n'):
-    if result.find('modified') != -1:
-        prepare_result = result.replace('\tmodified:   ', '')
+    if result.find('изменено') != -1:
+        prepare_result = result.replace('\изменено:   ', '')
         print(prepare_result)
         break
 ```
@@ -46,14 +46,22 @@ for result in result_os.split('\n'):
 ### Ваш скрипт:
 
 ```python
-???
+#!/usr/bin/env python3
+
+import os
+
+bash_command = ["cd ~/netology/sysadm-homeworks", "git status"]
+result_os = os.popen(' && '.join(bash_command)).read()
+is_change = False
+for result in result_os.split('\n'):
+    if result.find('изменено') != -1:
+        prepare_result = result.replace('\изменено:   ', '')
+        print(prepare_result)
 ```
 
 ### Вывод скрипта при запуске во время тестирования:
 
-```
-???
-```
+![11_2](images/11_2.png)
 
 ------
 
@@ -64,14 +72,26 @@ for result in result_os.split('\n'):
 ### Ваш скрипт:
 
 ```python
-???
+#!/usr/bin/env python3
+
+import os
+import sys
+
+working_directory = "~/netology/sysadm-homeworks"
+
+if len(sys.argv) > 1:
+    working_directory = sys.argv[1]
+bash_command = [f"cd {working_directory}", "git status"]
+result_os = os.popen(' && '.join(bash_command)).read()
+is_change = False
+for result in result_os.split('\n'):
+    if result.find('изменено') != -1:
+        prepare_result = result.replace('\tизменено:   ', '')
+        print(prepare_result)
 ```
 
 ### Вывод скрипта при запуске во время тестирования:
-
-```
-???
-```
+![11_3](images/11_3.png)
 
 ------
 
@@ -92,14 +112,32 @@ for result in result_os.split('\n'):
 ### Ваш скрипт:
 
 ```python
-???
+#!/usr/bin/env python3
+
+import socket
+from time import sleep
+
+hosts = {
+    'drive.google.com':'',
+    'mail.google.com': '',
+    'google.com': '',
+    'ya.ru': '' # добавил для наглядности, так как у гугловых адресов gethostbyname_ex возвращает 1 ip
+    }
+
+while True:
+    for k, v in hosts.items():
+        ip = socket.gethostbyname(k)
+        if ip != v:
+            print(f'[ERROR] {k} IP mismatch: {v} {ip}')
+            hosts[k] = ip
+        else:
+            print(f'{k} {ip}')
+        sleep(1)
 ```
 
 ### Вывод скрипта при запуске во время тестирования:
 
-```
-???
-```
+![11_4](images/11_4.png)
 
 ------
 
@@ -127,38 +165,10 @@ ___
 
 ### Ваш скрипт:
 
-```python
-???
-```
+[Выложил в отдельный репозиторий](https://github.com/zakamaldin/self-push/blob/main/push.py)
+
 
 ### Вывод скрипта при запуске во время тестирования:
 
-```
-???
-```
+![11_5](images/11_5.png)
 
-----
-
-### Правила приёма домашнего задания
-
-В личном кабинете отправлена ссылка на .md-файл в вашем репозитории.
-
------
-
-### Критерии оценки
-
-Зачёт:
-
-* выполнены все задания;
-* ответы даны в развёрнутой форме;
-* приложены соответствующие скриншоты и файлы проекта;
-* в выполненных заданиях нет противоречий и нарушения логики.
-
-На доработку:
-
-* задание выполнено частично или не выполнено вообще;
-* в логике выполнения заданий есть противоречия и существенные недостатки.  
- 
-Обязательными являются задачи без звёздочки. Их выполнение необходимо для получения зачёта и диплома о профессиональной переподготовке.
-
-Задачи со звёздочкой (*) являются дополнительными или задачами повышенной сложности. Они необязательные, но их выполнение поможет лучше разобраться в теме.
