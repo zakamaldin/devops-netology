@@ -67,6 +67,15 @@ hosts = {
     'ya.ru': '' # добавил для наглядности, так как у гугловых адресов gethostbyname_ex возвращает 1 ip
     }
 
+def save_data():
+    with open('js.json', 'w') as js:
+        json.dump(hosts, fp = js, indent = 2,)
+    list_hosts = [{k: v} for k, v in hosts.items()]
+    with open('ym.yaml', 'w') as ym:
+        yaml.dump(list_hosts, ym, explicit_start=True, explicit_end=True, indent=2)
+
+save_data()
+
 while True:
     for k, v in hosts.items():
         ip = socket.gethostbyname(k)
@@ -75,7 +84,8 @@ while True:
             hosts[k] = ip
         else:
             print(f'{k} {ip}')
-        sleep(1)
+        sleep(0.1)
+    save_data()
 ```
 
 ### Вывод скрипта при запуске во время тестирования:
