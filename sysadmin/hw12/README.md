@@ -21,8 +21,11 @@
 ### Ваш скрипт:
 
 Убрал табуляцию
+
 Добавил запятую между элементами массива
+
 Добавил кавычки в ключе и значении ip второго элемента массива
+
 ```
     { "info" : "Sample JSON output from our service",
         "elements" :[
@@ -84,7 +87,7 @@ while True:
             hosts[k] = ip
         else:
             print(f'{k} {ip}')
-        sleep(0.1)
+        sleep(1)
     save_data()
 ```
 
