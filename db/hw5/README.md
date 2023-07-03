@@ -41,7 +41,14 @@ COPY elasticsearch.yml /etc/elasticsearch/elasticsearch.yml
 ENTRYPOINT service elasticsearch start && tail -F /var/log/elasticsearch/netology_elastic.log
 EXPOSE 9200 9300
 ```
+- elasticsearch.yml
 
+```yaml
+cluster.name: netology_elastic
+node.name: netology_test
+path.data: /var/lib/elasticsearch
+path.logs: /var/log/elasticsearch
+```
 - Ответ от elasticsearch
     
 ![5_1](images/5_1.png)
