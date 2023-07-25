@@ -40,3 +40,23 @@ variable "vms_ssh_root_key" {
   description = "ssh-keygen -t ed25519"
 }
 
+
+###VM prefix name
+
+variable "cloud_name" {
+  type = string
+  default = "netology"
+  description = "Name of Cloud"
+}
+
+variable "dev_environment" {
+  type = string
+  default = "develop"
+  description = "Name for development env"
+}
+
+variable "platform" {
+  type = string
+  default = "platform"
+  description = "Name of platform"
+}
