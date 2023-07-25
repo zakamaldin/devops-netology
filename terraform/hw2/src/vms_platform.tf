@@ -1,123 +1,45 @@
-###vm_web vars
+# resources
 
-variable "vm_web_image_family" {
-  type        = string
-  default     = "ubuntu-2004-lts"
-  description = "OS image family for WEB VM"
+variable "vms_resources" {
+  type = map(object({
+    cores = number
+    memory = number
+    core_fraction = number
+    username = string
+    }))
+    default = {
+        "vm_web_resources" = {
+            cores = 2
+            memory = 1
+            core_fraction = 20
+            username = "ubuntu"
+        }
+        "vm_db_resources" = {
+            cores = 2
+            memory = 2
+            core_fraction = 20
+            username = "postgres"
+        }
+    }
+    description = "Resources of VMs"
 }
 
-variable "vm_web_instanse_name" {
-  type        = string
-  default     = "netology-develop-platform-web"
-  description = "Name of VM in Cloud"
-}
-
-variable "vm_web_instanse_username" {
-  type        = string
-  default     = "ubuntu"
-  description = "Name of username in VM"
-}
-
-variable "vm_web_instanse_platform_id" {
-  type        = string
-  default     = "standard-v3"
-  description = "Id of CPU platform in Cloud"
-}
-
-variable "vm_web_instanse_cores" {
-  type        = number
-  default     = 2
-  description = "Number of CPU in VM"
-}
-
-variable "vm_web_instanse_memory" {
-  type        = number
-  default     = 1
-  description = "Number of RAM in VM(GB)"
-}
-
-variable "vm_web_instanse_core_fraction" {
-  type        = number
-  default     = 20
-  description = "Percent of CPU performance in VM"
-}
-
-variable "vm_web_instanse_scheduling_policy_preemptible" {
-  type        = bool
-  default     = true
-  description = "Make VM an interruptible"
-}
-
-variable "vm_web_instanse_network_interface_nat" {
-  type        = bool
-  default     = true
-  description = "Enable NAT for VM"
-}
-
-variable "vm_web_instanse_metadata_serial_port_enable" {
-  type        = number
-  default     = 1
-  description = "Enable serial-port to VM from Cloud UI"
-}
-
-###vm_db vars
-
-variable "vm_db_image_family" {
-  type        = string
-  default     = "ubuntu-2004-lts"
-  description = "OS image family for DB VM"
-}
-
-variable "vm_db_instanse_name" {
-  type        = string
-  default     = "netology-develop-platform-db"
-  description = "Name of DB VM in Cloud"
-}
-
-variable "vm_db_instanse_username" {
-  type        = string
-  default     = "ubuntu"
-  description = "Name of username in DB VM"
-}
-
-variable "vm_db_instanse_platform_id" {
-  type        = string
-  default     = "standard-v3"
-  description = "Id of CPU platform in Cloud"
-}
-
-variable "vm_db_instanse_cores" {
-  type        = number
-  default     = 2
-  description = "Number of CPU in DB VM"
-}
-
-variable "vm_db_instanse_memory" {
-  type        = number
-  default     = 2
-  description = "Number of RAM in DB VM(GB)"
-}
-
-variable "vm_db_instanse_core_fraction" {
-  type        = number
-  default     = 20
-  description = "Percent of CPU performance in DB VM"
-}
-
-variable "vm_db_instanse_scheduling_policy_preemptible" {
-  type        = bool
-  default     = true
-  description = "Make DB VM an interruptible"
-}
-
-variable "vm_db_instanse_network_interface_nat" {
-  type        = bool
-  default     = true
-  description = "Enable NAT for DB VM"
-}
-
-variable "vm_db_instanse_metadata_serial_port_enable" {
-  type        = number
-  default     = 1
-  description = "Enable serial-port to DB VM from Cloud UI"
+variable "vms_metadata" {
+  type = object({
+    image_family = string
+    platform_id = string
+    serial_port_enable = number
+    ssh-keys = string
+    nat = bool
+    scheduling_policy_preemptible = bool
+    })
+    default = {
+            image_family = "ubuntu-2004-lts"
+            platform_id = "standard-v3"
+            serial_port_enable = 1
+            ssh-keys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ+7YD4VM9/e97tMiNfaSgJNbHb9KC2ArCu4JwulkCgB admin\\admin@ADMIN"
+            nat = true
+            scheduling_policy_preemptible = true
+        }
+    description = "Metadata of VMs"
 }

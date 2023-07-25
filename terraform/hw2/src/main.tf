@@ -10,15 +10,15 @@ resource "yandex_vpc_subnet" "develop" {
 
 
 data "yandex_compute_image" "ubuntu" {
-  family = var.vm_web_image_family
+  family = var.vms_metadata.image_family
 }
 resource "yandex_compute_instance" "platform" {
   name        = local.web_vm_name
-  platform_id = var.vm_web_instanse_platform_id
+  platform_id = var.vms_metadata.platform_id
   resources {
-    cores         = var.vm_web_instanse_cores
-    memory        = var.vm_web_instanse_memory
-    core_fraction = var.vm_web_instanse_core_fraction
+    cores         = var.vms_resources.vm_web_resources.cores
+    memory        = var.vms_resources.vm_web_resources.memory
+    core_fraction = var.vms_resources.vm_web_resources.core_fraction
   }
   boot_disk {
     initialize_params {
@@ -26,27 +26,27 @@ resource "yandex_compute_instance" "platform" {
     }
   }
   scheduling_policy {
-    preemptible = var.vm_web_instanse_scheduling_policy_preemptible
+    preemptible = var.vms_metadata.scheduling_policy_preemptible
   }
   network_interface {
     subnet_id = yandex_vpc_subnet.develop.id
-    nat       = var.vm_web_instanse_network_interface_nat
+    nat       = var.vms_metadata.nat
   }
 
   metadata = {
-    serial-port-enable = var.vm_web_instanse_metadata_serial_port_enable
-    ssh-keys           = "${var.vm_web_instanse_username}:${var.vms_ssh_root_key}"
+    serial-port-enable = var.vms_metadata.serial_port_enable
+    ssh-keys           = "${var.vms_resources.vm_web_resources.username}:${var.vms_metadata.ssh-keys}"
   }
 
 }
 
 resource "yandex_compute_instance" "database" {
   name        = local.db_vm_name
-  platform_id = var.vm_db_instanse_platform_id
+  platform_id = var.vms_metadata.platform_id
   resources {
-    cores         = var.vm_db_instanse_cores
-    memory        = var.vm_db_instanse_memory
-    core_fraction = var.vm_db_instanse_core_fraction
+    cores         = var.vms_resources.vm_db_resources.cores
+    memory        = var.vms_resources.vm_db_resources.memory
+    core_fraction = var.vms_resources.vm_db_resources.core_fraction
   }
   boot_disk {
     initialize_params {
@@ -54,16 +54,16 @@ resource "yandex_compute_instance" "database" {
     }
   }
   scheduling_policy {
-    preemptible = var.vm_db_instanse_scheduling_policy_preemptible
+    preemptible = var.vms_metadata.scheduling_policy_preemptible
   }
   network_interface {
     subnet_id = yandex_vpc_subnet.develop.id
-    nat       = var.vm_db_instanse_network_interface_nat
+    nat       = var.vms_metadata.nat
   }
 
   metadata = {
-    serial-port-enable = var.vm_db_instanse_metadata_serial_port_enable
-    ssh-keys           = "${var.vm_db_instanse_username}:${var.vms_ssh_root_key}"
+    serial-port-enable = var.vms_metadata.serial_port_enable
+    ssh-keys           = "${var.vms_resources.vm_db_resources.username}:${var.vms_metadata.ssh-keys}"
   }
 
 }
