@@ -5,7 +5,7 @@ module "test-vm-dev" {
   subnet_zones    = ["ru-central1-a"]
   subnet_ids      = module.net_dev.subnet_ids
   instance_name   = "web"
-  image_family    = "ubuntu-2004-lts"
+  image_family    = var.image_family
   public_ip       = true
   
   metadata = {
@@ -22,7 +22,7 @@ module "test-vm-prod" {
   subnet_zones    = ["ru-central1-a"]
   subnet_ids      = module.net_prod.subnet_ids
   instance_name   = "web"
-  image_family    = "ubuntu-2004-lts"
+  image_family    = var.image_family
   public_ip       = true
   
   metadata = {
@@ -48,6 +48,22 @@ module "net_dev" {
   subnets = [
     { zone = "ru-central1-a", cidr = "10.0.1.0/24" },
   ]
+}
+
+module "netology_db_cluster" {
+  source       = "./modules/db_cluster"
+  cluster_name = "example"
+  net_id       = module.net_dev.network_id
+  subnet_id    = module.net_dev.subnet_ids[0]
+  HA           = false
+}
+
+module "netology_db_with_user" {
+  source          = "./modules/db_user"
+  db_cluster_id   = module.netology_db_cluster.cluster_id
+  db_name         = "test"
+  db_username     = "app"
+  db_password     = var.db_password
 }
 
 #Пример передачи cloud-config в ВМ для демонстрации №3

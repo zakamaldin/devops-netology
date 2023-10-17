@@ -53,5 +53,12 @@ variable "vm_db_name" {
   description = "example vm_db_ prefix"
 }
 
+variable "image_family" {
+  type    = string
+  default = "ubuntu-2204-lts"
+}
 
-
+variable "db_password" {
+  type        = string
+  description = "User password for database in cluster"
+}
