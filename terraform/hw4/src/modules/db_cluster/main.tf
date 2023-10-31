@@ -13,6 +13,7 @@ resource "yandex_mdb_mysql_cluster" "netology_db_cluster" {
   network_id          = var.net_id
   version             = "8.0"
   deletion_protection = false
+  security_group_ids = var.security_group_ids
 
   resources {
     resource_preset_id = "b1.medium"

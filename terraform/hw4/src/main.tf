@@ -1,12 +1,13 @@
 module "test-vm-dev" {
-  source          = "git::https://github.com/udjin10/yandex_compute_instance.git?ref=main"
+  source          = "git::https://github.com/udjin10/yandex_compute_instance.git?ref=4d05fab828b1fcae16556a4d167134efca2fccf2"
   env_name        = "develop"
   network_id      = module.net_dev.network_id
   subnet_zones    = ["ru-central1-a"]
   subnet_ids      = module.net_dev.subnet_ids
   instance_name   = "web"
   image_family    = var.image_family
-  public_ip       = true
+  public_ip       = false
+  security_group_ids = [ module.net_dev.network_id ]
   
   metadata = {
       user-data          = data.template_file.cloudinit.rendered #Для демонстрации №3
@@ -16,14 +17,15 @@ module "test-vm-dev" {
 }
 
 module "test-vm-prod" {
-  source          = "git::https://github.com/udjin10/yandex_compute_instance.git?ref=main"
+  source          = "git::https://github.com/udjin10/yandex_compute_instance.git?ref=4d05fab828b1fcae16556a4d167134efca2fccf2"
   env_name        = "production"
   network_id      = module.net_prod.network_id
   subnet_zones    = ["ru-central1-a"]
   subnet_ids      = module.net_prod.subnet_ids
   instance_name   = "web"
   image_family    = var.image_family
-  public_ip       = true
+  public_ip       = false
+  security_group_ids = [ module.net_dev.network_id ]
   
   metadata = {
       user-data          = data.template_file.cloudinit.rendered #Для демонстрации №3
@@ -56,6 +58,8 @@ module "netology_db_cluster" {
   net_id       = module.net_dev.network_id
   subnet_id    = module.net_dev.subnet_ids[0]
   HA           = false
+  security_group_ids = [ module.net_dev.network_id ]
+
 }
 
 module "netology_db_with_user" {

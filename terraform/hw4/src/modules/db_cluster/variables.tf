@@ -21,3 +21,8 @@ variable "HA" {
   default     = false
   description = "Multiple host cluster or single"
 }
+
+variable "security_group_ids" {
+  type = list(string)
+  default = []
+}
