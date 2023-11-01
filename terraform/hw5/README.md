@@ -68,6 +68,9 @@
 4. Вставьте в комментарий PR результат анализа tflint и checkov, план изменений инфраструктуры из вывода команды terraform plan.
 5. Пришлите ссылку на PR для ревью. Вливать код в 'terraform-05' не нужно.
 
+
+### Ответ:
+  Pull Request - https://github.com/zakamaldin/devops-netology/pull/25
 ------
 ### Задание 4
 
