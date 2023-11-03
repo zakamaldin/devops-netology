@@ -3,5 +3,5 @@ output "vault_example" {
 } 
 
 output "vault_database_creds" {
- value = "${nonsensitive(data.vault_generic_secret.vault_database_creds.data)}"
+ value = "${nonsensitive(data.vault_generic_secret.vault_database_creds_data.data)}"
 } 
