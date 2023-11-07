@@ -1,0 +1,13 @@
+---
+  - name: Print os facts
+    hosts: all
+    gather_facts: false
+    tasks:
+      - name: Get facts on current container
+        community.docker.current_container_facts:
+      - name: Print container ID
+        debug:
+          msg: "{{ ansible_module_container_id  }}"
+      - name: Print fact
+        debug:
+          msg: "{{ some_fact }}"
