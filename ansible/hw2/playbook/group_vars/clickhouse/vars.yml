@@ -6,4 +6,3 @@ clickhouse_packages:
   - clickhouse-common-static
 vector_version: "0.34.0"
 ansible_user: centos
-vector_install_dir: /etc/opt/vector

@@ -27,13 +27,18 @@ Play `Install Clickhouse` состоит из следующих тасок:
 #### Tasks
 
 Play `Install Vector` состоит из следующих тасок:
-- `Make vector directory` - выполняет создане директории, куда будет скачан иустановлен пакет vector
-- `Download Vector` - выполняет скачивание пакета vector
-- `Unarchive package` - выполняет разархивирование(установку) скачанного пакета vector в заданную директорию
-- `Configure vector` - выполняет конфигурирование пакета vector
+- `Make Vector temp directory` - выполняет создане директории, куда будет скачан и извлечен пакет Vector
+- `Download Vector` - выполняет скачивание пакета Vector
+- `Unarchive package` - выполняет разархивирование(установку) скачанного пакета Vector в заданную директорию
+- `Create Vector system user` - выполняет создание системного пользователя `vector` для запуска пакета Vector
+- `Install Vector` - копирут исполняемый файл пакета Vector в директорию /usr/bin
+- `Make Vector data directory` - выполняет создание директории, где будут храниться данные пакета Vector
+- `Make Vector config directory` - выполняет создание директории, где будет храниться конфигурация пакета Vector
+- `Configure Vector` - выполняет конфигурирование пакета Vector
+- `Create Vector service` - выполняет создание сервиса в systemd
+- `Reload Daemon` - выполняет перезаупск службы демона systemd, для дальнейшего запуска пакета Vector через хэндлер `Start Vector service`
 
 #### Variables
 
 Переменные для play `Install Vector`:
 - `vector_version` - указание версию пакета vector, который необходимо скачать и установить
-- `vector_install_dir` - указание рабочей директории пакета vector 
