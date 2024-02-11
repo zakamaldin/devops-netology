@@ -1,0 +1,34 @@
+pipeline {
+    agent {
+        label 'ansible' 
+    }
+    parameters{
+        string(name: 'ROLE_URL', defaultValue: 'https://github.com/zakamaldin/vector-role')
+        string(name: 'ROLE_NAME', defaultValue: 'vector-role')
+        string(name: 'SCENARIO', defaultValue: 'default')
+    }
+    
+    stages {
+        stage('Download role') {
+            steps {
+                sh "rm -rf '${params.ROLE_NAME}'"
+                sh "git clone '${params.ROLE_URL}'"
+            }
+        }
+        
+        stage('Run molecule test') {
+            steps {
+                dir("${params.ROLE_NAME}"){
+                 sh 'pwd'
+                 sh "molecule test -s '${params.SCENARIO}'"
+                }
+            }
+        }
+        
+        stage('Clean') {
+            steps{
+                cleanWs()
+            }
+        }
+    }
+}
