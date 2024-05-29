@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-2
+  labels:
+    app: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-2
+  template:
+    metadata:
+      labels:
+        app: nginx-2
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+      initContainers:
+      - name: service-waiter
+        image: busybox:1.28
+        command: ['sh', '-c', "until nslookup deployment-2-svc.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for deployment-2-svc service; sleep 2; done"]
