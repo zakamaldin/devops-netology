@@ -50,7 +50,7 @@
 
 ### Ответ:
 Решение в [deployment-2.yaml](deployment-2.yaml), [deployment-2-svc.yaml](deployment-2-svc.yaml)
-![1_1](images/1_1.png)
+![2_1](images/2_1.png)
 
 ------
 
