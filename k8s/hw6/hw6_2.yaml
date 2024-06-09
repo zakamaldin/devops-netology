@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: hw6-2
+  labels:
+    app: hw6-2
+spec:
+  selector:
+    matchLabels:
+      app: hw6-2
+  template:
+    metadata:
+      labels:
+        app: hw6-2
+    spec:
+      containers:
+      - name: multitool
+        image: wbitt/network-multitool:latest
+        env:
+        - name: HTTP_PORT
+          value: "8080"
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: my-vol-syslog
+          mountPath: /var_log_from_node
+      volumes:
+      - name: my-vol-syslog
+        hostPath:
+          path: /var/log/

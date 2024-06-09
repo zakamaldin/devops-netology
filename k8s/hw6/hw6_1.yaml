@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hw6-1
+  labels:
+    app: hw6-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hw6-1
+  template:
+    metadata:
+      labels:
+        app: hw6-1
+    spec:
+      containers:
+      - name: app
+        image: busybox:latest
+        command: 
+          - sh
+          - -c
+        args: 
+          - while true; do echo "Hello from $HOSTNAME $(date)" >> /netology/log.txt; sleep 5; done;
+        volumeMounts:
+        - name: myvol
+          mountPath: /netology
+      - name: multitool
+        image: wbitt/network-multitool:latest
+        env:
+        - name: HTTP_PORT
+          value: "8080"
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: myvol
+          mountPath: /from_busybox
+      volumes:
+      - name: myvol
+        emptyDir: {}
