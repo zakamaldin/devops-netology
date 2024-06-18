@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hw8-1
+  labels:
+    app: hw8-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hw8-1
+  template:
+    metadata:
+      labels:
+        app: hw8-1
+    spec:
+      containers:
+      - name: nginx
+        image: dockerhub.timeweb.cloud/nginx:1.14.2
+        volumeMounts:
+        - name: configs
+          mountPath: /usr/share/nginx/html/index.html
+          subPath: index.html
+          
+      - name: multitool
+        image:  dockerhub.timeweb.cloud/wbitt/network-multitool:latest
+        env:
+        - name: HTTP_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: multitool-configmap
+              key: multitool_http_port
+        ports:
+        - containerPort: 8080
+      volumes:
+      - name: configs
+        configMap:
+          name: nginx-configmap
+
+
