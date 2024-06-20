@@ -1,0 +1,13 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: zakamaldin-pods-view
+  namespace: hw9
+subjects:
+- kind: User
+  name: zakamaldin
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: pods-view
+  apiGroup: rbac.authorization.k8s.io
