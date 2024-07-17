@@ -1,0 +1,18 @@
+#cloud-config
+write_files:
+  - path: /var/www/html/index.html
+    content: |
+      <html>
+      <body>
+        <h1>Hello, World!</h1>
+        <p>Welcome from Yandex cloud LAMP image!</p>
+        <img src="https://storage.yandexcloud.net/${storage}/${object}"> 
+      </body>
+      </html>
+ssh_pwauth: no
+users:
+- name: ${username}
+  sudo: 'ALL=(ALL) NOPASSWD:ALL'
+  shell: /bin/bash
+  ssh_authorized_keys:
+  - ${ssh_key}
